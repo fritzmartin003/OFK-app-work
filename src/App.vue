@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { employees } from './data/employees'
+import employeesCsv from './data/employees.csv?raw'
 
 const views = [
   { id: 'stats', label: 'Statistiken' },
@@ -34,6 +34,7 @@ const formatter = new Intl.NumberFormat('de-DE', {
 })
 
 const numberFormatter = new Intl.NumberFormat('de-DE')
+const employees = parseEmployeesCsv(employeesCsv)
 
 const enrichedEmployees = computed(() =>
   employees.map((employee) => ({
@@ -184,6 +185,54 @@ function filterEmployees(list, filters) {
       matchesLicense
     )
   })
+}
+
+function parseEmployeesCsv(csv) {
+  const rows = csv
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => line.split(';').map((cell) => cell.trim()))
+  const headers = rows[0]
+
+  return rows.slice(1).map((row) => {
+    const record = Object.fromEntries(headers.map((header, index) => [header, row[index] ?? '']))
+    const licenses = []
+
+    for (let index = 0; index < 5; index += 1) {
+      const suffix = index === 0 ? '' : ` ${index + 1}`
+      const name = record[`Licenses${suffix}`]
+      const cost = Number.parseFloat(record[`Cost${suffix}`] || '0')
+
+      if (name) {
+        licenses.push({
+          name,
+          cost: Number.isFinite(cost) ? cost : 0,
+        })
+      }
+    }
+
+    return {
+      id: slugify(record['User principal name'] || record['Display name']),
+      displayName: record['Display name'],
+      email: record['User principal name'],
+      accountType: record['Account Type'],
+      firstName: record['First name'],
+      lastName: record['Last name'],
+      department: record.Department,
+      ofkCode: record['OFK - Kuerzel'],
+      ofk: record.OFK,
+      city: record.City,
+      country: record.CountryOrRegion,
+      licenses,
+    }
+  })
+}
+
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
 }
 
 function uniqueOptions(list, key) {

@@ -1,0 +1,6 @@
+Display name;User principal name;Account Type;First name;Last name;Department;OFK - Kuerzel;OFK;City;CountryOrRegion;Licenses;Cost;Licenses 2;Cost 2;Licenses 3;Cost 3;Licenses 4;Cost 4;Licenses 5;Cost 5
+Mustermann, Max;max.mustermann@company.com;Intern;Max;Mustermann;IT;H-IT;IT Dept;Freiberg;DE;Microsoft 365 E5;48.31;Microsoft 365 Copilot;23.87;;;;;;
+Musterfrau, Anna;anna.musterfrau@company.com;Intern;Anna;Musterfrau;HR;H-HR;HR Dept;Munich;DE;Microsoft 365 F3;6.44;;;;;;;;
+Doe, John;john.doe@company.com;Ext;John;Doe;Finance;H-FI;Finance Dept;Portland;US;Microsoft Entra ID P2;6.36;Exchange Online (Plan 1);2.84;;;;;;
+Service Account 1;service1@company.com;Service Account;Service;Account;IT;H-IT;IT Dept;Singapore;SG;Microsoft 365 F3;6.44;Microsoft Defender Add-On;6.44;;;;;;
+Test User, Lisa;lisa.test@company.com;Intern;Lisa;Test;Engineering;H-EN;Engineering Dept;Burghausen;DE;Microsoft 365 E5;48.31;Visio Plan 2;10.6;Planner Plan 3;21.21;;;;
